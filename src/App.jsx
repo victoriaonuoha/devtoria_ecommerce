@@ -1,15 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Navbar from "./components/Navbar";
+import ProductGallery from "./components/ProductGallery";
+import ProductInfo from "./components/ProductInfo";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-   <>hello
-   <div className='bg-blue-100'>3finkgitjiijjoooo </div></>
-  )
-}
+    <div>
+      <Navbar />
 
-export default App
+      <main className="max-w-6xl mx-auto lg:px-6 py-10 lg:py-20 grid lg:grid-cols-2 gap-16 items-center">
+        <ProductGallery />
+        <ProductInfo />
+      </main>
+    </div>
+  );
+}
