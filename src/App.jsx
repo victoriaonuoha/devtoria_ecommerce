@@ -10,7 +10,7 @@ export default function App() {
     <div>
       <Navbar />
 
-      <main className="max-w-6xl mx-auto lg:px-6 py-10 lg:py-20 grid lg:grid-cols-2 gap-16 items-center">
+      <main className="max-w-6xl mx-auto lg:px-6 py-10 lg:py-5 grid lg:grid-cols-2 gap-16 items-center">
         <ProductGallery
           products={products}
           selectedProduct={selectedProduct}

@@ -1,64 +1,93 @@
 import { motion } from "framer-motion";
 import { useCart } from "../context/CartContext";
 
-export default function CartDropdown() {
+export default function CartDropdown({ onClose }) {
   const { cartItems, removeFromCart } = useCart();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      className="absolute right-0 top-14 w-96 bg-white shadow-xl rounded-lg z-50"
-    >
-      <div className="p-4 border-b font-bold">
-        Cart
-      </div>
+    <>
+      {/* Overlay */}
+      <div
+        className="fixed inset-0 z-40"
+        onClick={onClose}
+      />
 
-      <div className="p-6 max-h-80 overflow-y-auto">
-        {cartItems.length === 0 ? (
-          <p className="text-center text-gray-500 font-semibold">
-            Your cart is empty.
-          </p>
-        ) : (
-          <>
-            {cartItems.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center gap-4 mb-4"
-              >
-                <img
-                  src={item.thumb}
-                  alt={item.title}
-                  className="w-12 rounded-md"
-                />
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        className="
+          fixed
+          z-50
+          bg-white
+          shadow-xl
+          rounded-lg
 
-                <div className="flex-1 text-sm text-gray-600">
-                  <p>{item.title}</p>
-                  <p>
-                    ${item.price}.00 × {item.quantity}{" "}
-                    <span className="font-bold text-black">
-                      $
-                      {(item.price * item.quantity).toFixed(2)}
-                    </span>
-                  </p>
-                </div>
+          /* Mobile */
+          top-24
+          left-1/2
+          -translate-x-1/2
+          w-[95%]
+          max-w-sm
 
-                <button onClick={() => removeFromCart(item.id)}>
+          /* Desktop */
+          lg:absolute
+          lg:top-14
+          lg:right-4
+          lg:left-auto
+          lg:translate-x-0
+          lg:w-96
+        "
+      >
+        <div className="p-4 border-b font-bold">
+          Cart
+        </div>
+
+        <div className="p-6 max-h-80 overflow-y-auto">
+          {cartItems.length === 0 ? (
+            <p className="text-center text-gray-500 font-semibold">
+              Your cart is empty.
+            </p>
+          ) : (
+            <>
+              {cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center gap-4 mb-4"
+                >
                   <img
-                    src="/images/icon-delete.svg"
-                    alt="Delete"
+                    src={item.thumb}
+                    alt={item.title}
+                    className="w-12 rounded-md"
                   />
-                </button>
-              </div>
-            ))}
 
-            <button className="w-full bg-orange-500 text-white py-3 rounded-lg font-bold mt-4">
-              Checkout
-            </button>
-          </>
-        )}
-      </div>
-    </motion.div>
+                  <div className="flex-1 text-sm text-gray-600">
+                    <p>{item.title}</p>
+                    <p>
+                      ${item.price}.00 × {item.quantity}{" "}
+                      <span className="font-bold text-black">
+                        $
+                        {(item.price * item.quantity).toFixed(2)}
+                      </span>
+                    </p>
+                  </div>
+
+                  <button onClick={() => removeFromCart(item.id)}>
+                    <img
+                      src="/images/icon-delete.svg"
+                      alt="Delete"
+                    />
+                  </button>
+                </div>
+              ))}
+
+              <button className="w-full bg-orange-500 text-white py-3 rounded-lg font-bold mt-4">
+                Checkout
+              </button>
+            </>
+          )}
+        </div>
+      </motion.div>
+    </>
   );
 }
